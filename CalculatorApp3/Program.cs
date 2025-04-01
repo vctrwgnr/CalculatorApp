@@ -24,7 +24,7 @@ namespace CalculatorApp3
                 string input = Console.ReadLine()?.Trim();
 
                 
-                if (input.Contains("-") && !input.StartsWith("-")) 
+                if (input.Contains("-")) 
                 {
                     
                     string[] inputParts = input.Split("-");
@@ -55,10 +55,7 @@ namespace CalculatorApp3
                             Console.WriteLine("Invalid input. Please enter valid numbers.");
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid input format for subtraction.");
-                    }
+           
                 }
                 else
                 {
