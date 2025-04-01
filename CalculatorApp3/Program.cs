@@ -37,7 +37,8 @@ namespace CalculatorApp3
 
                         if (inputParts.Length == 2)
                         {
-                            double num1, num2;
+                            double num1;
+                            double num2;
 
                             if (double.TryParse(inputParts[0].Trim(), out num1) && double.TryParse(inputParts[1].Trim(), out num2))
                             {
