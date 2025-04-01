@@ -18,6 +18,7 @@ namespace CalculatorApp3
 
                 
                 var operators = manager.Extensions.Select(p => p.Value().OperatorSymbol).ToArray();
+                var charOperators = operators.SelectMany(op => op.ToCharArray()).ToArray();
 
                 Console.WriteLine("Available operations: " + string.Join(", ", operators));
                 Console.Write("Enter calculation (e.g., 10-5): ");
@@ -60,7 +61,7 @@ namespace CalculatorApp3
                 else
                 {
                    
-                    var parts = input.ParseKeyValue(new[] { '+', '-', '*', '/' });
+                    var parts = input.ParseKeyValue(charOperators);
                     var num1 = double.Parse(parts.Key);
                     var num2 = double.Parse(parts.Value);
                     var usedOperator = input.FirstOrDefault(c => operators.Contains(c.ToString()));
