@@ -12,8 +12,9 @@ namespace CalculatorApp3
         {
             var manager = new ExtensionsManager<IPluginInterface>();
 
-            while (true)
+            try
             {
+<<<<<<< HEAD
                 manager.Update(new[] { @"..\..\..\..\Plugins\*.dll" });
 
                 
@@ -26,36 +27,79 @@ namespace CalculatorApp3
 
                 
                 if (input.Contains("-")) 
+=======
+                while (true)
+>>>>>>> tryCatch
                 {
-                    
-                    string[] inputParts = input.Split("-");
-
-                    
-                    if (inputParts.Length == 2)
+                    try
                     {
-                        double num1, num2;
+                        manager.Update(new[] { @"..\..\..\..\Plugins\*.dll" });
 
-                       
-                        if (double.TryParse(inputParts[0].Trim(), out num1) && double.TryParse(inputParts[1].Trim(), out num2))
+                        var operators = manager.Extensions.Select(p => p.Value().OperatorSymbol).ToArray();
+
+                        Console.WriteLine("Available operations: " + string.Join(", ", operators));
+                        Console.Write("Enter calculation in the format (10+10): ");
+                        string input = Console.ReadLine()?.Trim();
+
+                        if (string.IsNullOrEmpty(input))
                         {
-                            
-                            var plugin = manager.Extensions.FirstOrDefault(p => p.Value().OperatorSymbol == "-")?.Value();
+                            Console.WriteLine("Cannot be empty.");
+                            continue;
+                        }
 
-                            if (plugin == null)
+                        if (input.Contains("-"))
+                        {
+                            string[] inputParts = input.Split("-");
+
+                            if (inputParts.Length == 2)
                             {
-                                Console.WriteLine("Subtraction plugin not found.");
-                                continue; 
-                            }
+                                double num1, num2;
 
-                          
-                            double result = plugin.Calculate(num1, num2);
-                            Console.WriteLine($"= {result}\n");
+                                if (double.TryParse(inputParts[0].Trim(), out num1) && double.TryParse(inputParts[1].Trim(), out num2))
+                                {
+                                    var plugin = manager.Extensions.FirstOrDefault(p => p.Value().OperatorSymbol == "-")?.Value();
+
+                                    if (plugin == null)
+                                    {
+                                        Console.WriteLine("Subtraction plugin not found.");
+                                        continue;
+                                    }
+
+                                    double result = plugin.Calculate(num1, num2);
+                                    Console.WriteLine($"= {result}\n");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid input. Please enter valid numbers.");
+                                }
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("Invalid input. Please enter valid numbers.");
+                            var parts = input.ParseKeyValue(new[] { '+', '-', '*', '/' });
+                            var num1 = double.Parse(parts.Key);
+                            var num2 = double.Parse(parts.Value);
+                            var usedOperator = input.FirstOrDefault(c => operators.Contains(c.ToString()));
+
+                            if (usedOperator == default(char))
+                            {
+                                Console.WriteLine("Invalid operator. Please use one of: " + string.Join(", ", operators));
+                                continue;
+                            }
+
+                            var plugin = manager.Extensions.FirstOrDefault(p => p.Value().OperatorSymbol == usedOperator.ToString())?.Value();
+
+                            if (plugin == null)
+                            {
+                                Console.WriteLine($"Operator '{usedOperator}' not supported.");
+                                continue;
+                            }
+
+                            double result = plugin.Calculate(num1, num2);
+                            Console.WriteLine($"= {result}\n");
                         }
                     }
+<<<<<<< HEAD
            
                 }
                 else
@@ -67,24 +111,30 @@ namespace CalculatorApp3
                     var usedOperator = input.FirstOrDefault(c => operators.Contains(c.ToString()));
 
                     if (usedOperator == default(char))
+=======
+                    catch (FormatException ex)
+>>>>>>> tryCatch
                     {
-                        Console.WriteLine("Invalid operator. Please use one of: " + string.Join(", ", operators));
-                        continue; 
+                        Console.WriteLine("Error: Invalid format. Please ensure you are entering numbers in the correct format.");
+                        Console.WriteLine($"Details: {ex.Message}");
                     }
-
-                    
-                    var plugin = manager.Extensions.FirstOrDefault(p => p.Value().OperatorSymbol == usedOperator.ToString())?.Value();
-
-                    if (plugin == null)
+                    catch (InvalidOperationException ex)
                     {
-                        Console.WriteLine($"Operator '{usedOperator}' not supported.");
-                        continue; 
+                        Console.WriteLine("Error: A plugin or operation is not properly configured.");
+                        Console.WriteLine($"Details: {ex.Message}");
                     }
-
-                    
-                    double result = plugin.Calculate(num1, num2);
-                    Console.WriteLine($"= {result}\n");
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("An unexpected error occurred.");
+                        Console.WriteLine($"Details: {ex.Message}");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine("Error.");
+                Console.WriteLine($"Details: {ex.Message}");
             }
         }
     }
