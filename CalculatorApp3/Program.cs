@@ -69,33 +69,17 @@ namespace CalculatorApp3
                             continue;
                         }
 
-                        var parts = input.Split(new[] { usedOperator }, StringSplitOptions.RemoveEmptyEntries);
+                        var parts = input.ParseKeyValue(charOperators);
+                        var num1 = double.Parse(parts.Key);
+                        var num2 = double.Parse(parts.Value);
 
-                        if (parts.Length != 2)
-                        {
-                            Console.WriteLine("Invalid format. Please ensure the input is in the correct format (e.g., 10+3).");
-                            continue;
-                        }
+                       
+                        var plugin = manager.Extensions.FirstOrDefault(p => p.Value().OperatorSymbol == usedOperator.ToString())?.Value();
 
-                        double num1, num2;
-
-                        if (double.TryParse(parts[0].Trim(), out num1) && double.TryParse(parts[1].Trim(), out num2))
-                        {
-                            var plugin = manager.Extensions.FirstOrDefault(p => p.Value().OperatorSymbol == usedOperator.ToString())?.Value();
-
-                            if (plugin == null)
-                            {
-                                Console.WriteLine($"Operator '{usedOperator}' not supported.");
-                                continue;
-                            }
-
-                            double result = plugin.Calculate(num1, num2);
-                            Console.WriteLine($"= {result}\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid input. Please enter valid numbers.");
-                        }
+                           
+                         double result = plugin.Calculate(num1, num2);
+                         Console.WriteLine($"= {result}\n");
+                       
                     }
                 }
             }
