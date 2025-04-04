@@ -15,6 +15,7 @@ namespace CalculatorApp3
             try
             {
                 manager.Update(new[] { @"..\..\..\..\Plugins\*.dll" });
+                
 
                 var operators = manager.Extensions.Select(p => p.Value().OperatorSymbol).ToArray();
                 var charOperators = operators.SelectMany(op => op.ToCharArray()).ToArray();
