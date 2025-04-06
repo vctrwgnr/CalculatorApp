@@ -2,6 +2,11 @@
 
 namespace AddOperationPlugin
 {
+    [OperationMetadataAttribute(
+    Name = "Addition",
+    Description = "Adds two numbers",
+    Aliases = new[] { "add", "sum" } 
+)]
     public class AddOperation : IPluginInterface
     {
         public string OperatorSymbol => "+";

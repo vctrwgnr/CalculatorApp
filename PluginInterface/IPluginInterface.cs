@@ -1,4 +1,5 @@
 ﻿namespace PluginInterface
+
 {
     public interface IPluginInterface
     {

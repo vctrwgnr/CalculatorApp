@@ -2,6 +2,11 @@
 
 namespace MultiplyOperationPlugin
 {
+    [OperationMetadataAttribute(
+        Name = "Multiplication",
+        Description = "Multiplies two numbers",
+        Aliases = new[] { "mult", "times" }
+    )]
     public class MultiplyOperation : IPluginInterface
     {
         public string OperatorSymbol => "*";

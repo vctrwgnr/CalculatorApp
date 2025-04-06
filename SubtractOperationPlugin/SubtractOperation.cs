@@ -2,6 +2,11 @@
 
 namespace SubtractOperationPlugin
 {
+    [OperationMetadataAttribute(
+        Name = "Subtraction",
+        Description = "Subtracts two numbers",
+        Aliases = new[] { "sub", "minus", "difference" }
+    )]
     public class SubtractOperation : IPluginInterface
     {
         public string OperatorSymbol => "-";

@@ -2,6 +2,11 @@
 
 namespace ModuloOperationPlugin
 {
+    [OperationMetadataAttribute(
+        Name = "Modulo",
+        Description = "Returns the remainder after division",
+        Aliases = new[] { "mod", "remainder" }
+    )]
     public class ModuloOperation : IPluginInterface
     {
         public string OperatorSymbol => "%";

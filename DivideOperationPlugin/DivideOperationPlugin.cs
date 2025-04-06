@@ -2,6 +2,11 @@
 
 namespace DivideOperationPlugin
 {
+    [OperationMetadataAttribute(
+        Name = "Division",
+        Description = "Divides two numbers",
+        Aliases = new[] { "div", "divide" }
+    )]
     public class DivideOperationPlugin : IPluginInterface
     {
         public string OperatorSymbol => "/";

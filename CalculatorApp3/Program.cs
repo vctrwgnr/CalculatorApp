@@ -10,17 +10,22 @@ namespace CalculatorApp3
     {
         static void Main(string[] args)
         {
-            var manager = new ExtensionsManager<IPluginInterface>();
+            var manager = new ExtensionsManager<IPluginInterface, OperationMetadataAttribute>();
 
             try
             {
                 manager.Update(new[] { @"..\..\..\..\Plugins\*.dll" });
-                
+                //manager.Update(new[] { "*.dll" });
+
 
                 var operators = manager.Extensions.Select(p => p.Value().OperatorSymbol).ToArray();
                 var charOperators = operators.SelectMany(op => op.ToCharArray()).ToArray();
 
-                Console.WriteLine("Available operations: " + string.Join(", ", operators));
+                Console.WriteLine("Available operations:");
+                foreach (var ext in manager.Extensions)
+                {
+                    Console.WriteLine($"{ext.Value().OperatorSymbol} ({ext.Metadata.Name}) - {ext.Metadata.Description}");
+                }
 
                 while (true)
                 {
