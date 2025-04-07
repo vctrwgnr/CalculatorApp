@@ -12,12 +12,12 @@ namespace CalculatorTest
         {
             var addOperation = new AddOperation();
             double num1 = 5;
-            double num2 = 3;
-            double expected = 8;
+            double num2 = 5;
+            double expected = 10;
 
-            double actual = addOperation.Calculate(num1, num2);
+            double result = addOperation.Calculate(num1, num2);
 
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, result);
         }
     }
 }
