@@ -7,7 +7,7 @@ namespace DivideOperationPlugin
         Description = "Divides two numbers",
         Aliases = new[] { "div", "divide" }
     )]
-    public class DivideOperationPlugin : IPluginInterface
+    public class DivideOperation : IPluginInterface
     {
         public string OperatorSymbol => "/";
         public double Calculate(double num1, double num2)
