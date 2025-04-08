@@ -4,10 +4,16 @@ namespace Tests
 {
     public class AddOperationTest
     {
+        private AddOperation addOperation;
         [SetUp]
+        public void Setup()
+        {
+            addOperation = new AddOperation();
+        }
+        [Test]
         public void AddOperationUnitTest()
         {
-            var addOperation = new AddOperation();
+            
             double num1 = 5;
             double num2 = 10;
             double expected = 15;
@@ -18,7 +24,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
-            //Assert.Pass();
+           
             
         }
     }

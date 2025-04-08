@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -19,7 +19,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AddOperationPlugin\AddOperationPlugin.csproj" />
+    <ProjectReference Include="..\DivideOperationPlugin\DivideOperationPlugin.csproj" />
+    <ProjectReference Include="..\ModuloOperationPlugin\ModuloOperationPlugin.csproj" />
+    <ProjectReference Include="..\MultiplyOperationPlugin\MultiplyOperationPlugin.csproj" />
     <ProjectReference Include="..\PluginInterface\PluginInterface.csproj" />
+    <ProjectReference Include="..\SubtractOperationPlugin\SubtractOperationPlugin.csproj" />
   </ItemGroup>
 
   <ItemGroup>
